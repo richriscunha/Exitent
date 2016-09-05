@@ -1,4 +1,4 @@
-# Exitent
+# Exitent (Still a Work in Progress)
 
 Exitent is a light-weight, dependency free Exit Intent detection library.  Use Exitent to detect if someone is leaving your sight and will fire several events.
 
