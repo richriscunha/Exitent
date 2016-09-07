@@ -5,12 +5,12 @@
 }(this, (function () { 'use strict';
 
 var defaultConfiguration = {
-  'threshold': 100,
+  'threshold': 50,
   'maxDisplays': 1,
-  'eventThrottle': 800,
+  'eventThrottle': 1000,
   'checkReferrer': false,
   'storageName': 'exitent-visited',
-  'storageLife': 365,
+  'storageLife': 7,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null

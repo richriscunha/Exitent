@@ -20,12 +20,12 @@ Or, if you would rather -- it may be included directly inline within your HTML d
 
 ```javascript
 {
-  'threshold': 100,
+  'threshold': 50,
   'maxDisplays': 1,
-  'eventThrottle': 800,
+  'eventThrottle': 500,
   'checkReferrer': true,
   'storageName': 'exitent-visited',
-  'storageLife': 365,
+  'storageLife': 7,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null
@@ -34,7 +34,7 @@ Or, if you would rather -- it may be included directly inline within your HTML d
 
 -   `threshold` maximum distance in pixels from the top of the page to consider triggering for.
 -   `maxDisplays` the maximum number of times the event(s) may be triggered on a page.
--   `eventThrottle` description goes here.
+-   `eventThrottle` the amount of time to wait in milliseconds to invoke the handler responsible for scroll events.
 -   `checkReferrer` whether or not to check the referring page to see if it's on the same domain and this isn't the first pageview.
 -   `storageName` the name/key to store the localStorage item (or cookie) under.
 -   `storageLife` the expiration in days of the localStorage item (or cookie).
