@@ -1,6 +1,6 @@
-# Exitent (Still a Work in Progress)
+# Exitent
 
-Exitent is a light-weight, dependency free Exit Intent detection library.  Use Exitent to detect if someone is leaving your sight and will fire several events.
+Exitent is a light-weight Exit Intent detection library.  Use Exitent to detect if someone is leaving your sight and will fire several events.
 
 ----------
 
@@ -24,6 +24,8 @@ Or, if you would rather -- it may be included directly inline within your HTML d
   'maxDisplays': 1,
   'eventThrottle': 800,
   'checkReferrer': true,
+  'storageName': 'exitent-visited',
+  'storageLife': 365,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null
@@ -34,6 +36,8 @@ Or, if you would rather -- it may be included directly inline within your HTML d
 -   `maxDisplays` description goes here.
 -   `eventThrottle` description goes here.
 -   `checkReferrer` description goes here.
+-   `storageName` description goes here.
+-   `storageLife` description goes here.
 -   `preExitent` description goes here.
 -   `onExitent` description goes here.
 -   `postExitent` description goes here.

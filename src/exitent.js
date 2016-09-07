@@ -1,7 +1,10 @@
 import {defaultConfiguration} from './configuration/default';
+import StorageJar from 'storage-jar';
+import throttle from 'lodash/throttle';
+import merge from 'lodash/merge';
 
 /**
- * Exitent is a light-weight, dependency free Exit Intent detection library.  Use Exitent to
+ * Exitent is a light-weight Exit Intent detection library.  Use Exitent to
  * detect if someone is leaving your sight and will fire several events.
  * @class
  */
@@ -24,11 +27,9 @@ export default class Exitent {
     this.eventListeners = new Map();
     this.displays = 0;
     this.options = defaultConfiguration;
-
     if (arguments.length === 1 && typeof options === 'object') {
       this.options = this.mergeOptions(defaultConfiguration, options);
     }
-
     this.init();
   }
   /**
@@ -42,13 +43,11 @@ export default class Exitent {
    */
   addEvent(elementId, eventName, callback) {
     const element = elementId === 'document' ? document : document.getElementById(elementId);
-
     if (element.addEvent) {
       element.attachEvent("on" + eventName, callback);
     } else {
       element.addEventListener(eventName, callback, false);
     }
-
     this.eventListeners.set(elementId + ":" + eventName, {
       element,
       eventName,
@@ -63,7 +62,6 @@ export default class Exitent {
    */
   executeCallbacks() {
     const {preExitent, onExitent, postExitent} = this.options;
-
     if (preExitent !== null && typeof preExitent === 'function') preExitent();
     if (onExitent !== null && typeof onExitent === 'function') onExitent();
     if (postExitent !== null && typeof postExitent === 'function') postExitent();
@@ -75,7 +73,6 @@ export default class Exitent {
    * @private
    */
   handleMouseEvent() {
-    this.displays++;
     this.executeCallbacks();
     this.shouldRemoveEvents();
   }
@@ -87,7 +84,7 @@ export default class Exitent {
    */
   init() {
     const handleCallback = (event) => { this.mouseDidMove(event); }
-    this.addEvent('document', 'mousemove', handleCallback);
+    this.addEvent('document', 'mousemove', throttle(handleCallback, this.options.eventThrottle));
   }
   /**
    * This function will take the provided options and merge with the default options.
@@ -99,10 +96,7 @@ export default class Exitent {
    * @private
    */
   mergeOptions(options, custom) {
-    Object.keys(options).forEach((key) => {
-      options[key] = custom[key]
-    });
-    return options;
+    return merge(options, custom);
   }
   /**
    * Handles each mousemove event and determines if the Exit Intent should be triggered.
@@ -112,19 +106,19 @@ export default class Exitent {
    * @private
    */
   mouseDidMove(event) {
+    const {maxDisplays, storageName, storageLife, checkReferrer} = this.options;
     if (this.shouldDisplay(event.clientY)) {
-      if (this.options.checkReferrer) {
-        if (document.referrer === "") {
-          return;
-        }
-
+      if (checkReferrer) {
         let link = document.createElement('a');
         link.href = document.referrer;
 
-        if (link.host !== document.location.host) {
+        if (document.referrer === "" || (link.host !== document.location.host))
           return;
-        }
       }
+
+      if (this.displays === maxDisplays && (! StorageJar.contains(storageName)))
+        StorageJar.write(storageName, storageName, storageLife);
+
       this.handleMouseEvent();
     }
   }
@@ -150,9 +144,14 @@ export default class Exitent {
    * @private
    */
   shouldDisplay(position) {
-    const {threshold, maxDisplays} = this.options;
-    const displays = this.displays;
-    return position <= threshold && displays < maxDisplays;
+    const {threshold, maxDisplays, storageName} = this.options;
+    if (position <= threshold && this.displays < maxDisplays) {
+      if (! StorageJar.contains(storageName)) {
+        this.displays++;
+        return true;
+      }
+    }
+    return false;
   }
   /**
    * Determines if Event Listeners should be removed and removes them.

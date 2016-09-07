@@ -2,7 +2,9 @@ const defaultConfiguration = {
   'threshold': 100,
   'maxDisplays': 1,
   'eventThrottle': 800,
-  'checkReferrer': true,
+  'checkReferrer': false,
+  'storageName': 'exitent-visited',
+  'storageLife': 365,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null
