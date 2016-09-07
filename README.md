@@ -1,6 +1,6 @@
 # Exitent
 
-Exitent is a light-weight Exit Intent detection library.  Use Exitent to detect if someone is leaving your sight and will fire several events.
+Exitent is a light-weight Exit Intent detection library.  Use Exitent to detect if someone is leaving your site and will fire several events.
 
 ----------
 
