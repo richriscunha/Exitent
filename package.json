@@ -1,6 +1,6 @@
 {
   "name": "Exitent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Exitent is a light-weight, dependency free Exit Intent detection library.",
   "main": "dist/exitent.min.js",
   "scripts": {
