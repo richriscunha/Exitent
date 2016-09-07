@@ -32,15 +32,15 @@ Or, if you would rather -- it may be included directly inline within your HTML d
 }
 ```
 
--   `threshold` description goes here.
--   `maxDisplays` description goes here.
+-   `threshold` maximum distance in pixels from the top of the page to consider triggering for.
+-   `maxDisplays` the maximum number of times the event(s) may be triggered on a page.
 -   `eventThrottle` description goes here.
--   `checkReferrer` description goes here.
--   `storageName` description goes here.
--   `storageLife` description goes here.
--   `preExitent` description goes here.
--   `onExitent` description goes here.
--   `postExitent` description goes here.
+-   `checkReferrer` whether or not to check the referring page to see if it's on the same domain and this isn't the first pageview.
+-   `storageName` the name/key to store the localStorage item (or cookie) under.
+-   `storageLife` the expiration in days of the localStorage item (or cookie).
+-   `preExitent` function to call when before an exit intent has been detected. This accepts no arguments since none are necessary.
+-   `onExitent` function to call when an exit intent has been detected. This accepts no arguments since none are necessary.
+-   `postExitent` function to call when after an exit intent has been detected. This accepts no arguments since none are necessary.
 
 ----------
 
