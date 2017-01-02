@@ -1,5 +1,7 @@
 # Exitent
 
+[![npm](https://img.shields.io/npm/dt/Exitent.svg)](https://www.npmjs.com/package/Exitent)
+
 Exitent is a light-weight Exit Intent detection library.  Use Exitent to detect if someone is leaving your site and will fire several events.
 
 ----------
